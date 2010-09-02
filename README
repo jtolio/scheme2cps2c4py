@@ -1,0 +1,32 @@
+python scheme compiler
+jt olds
+
+usage:
+./compiler.py < input.scm > out.c
+./compiler.py --output=c < input.scm > out.c
+
+alternatively:
+./compiler.py --output=cps < input.scm > output.scm
+
+other flags include
+  --curry            if you want the intermediate representation to curry all
+                     function calls, why you would i don't know
+  --recursion_limit  if you are having trouble with call depth size of the
+                     python interpreter.
+  --nogc             disables usage of the boehm garbage collector
+                     (not recommended)
+
+the story so far:
+ this is a scheme-to-c compiler written in python. it does not support all of
+r5rs by any means (there aren't many valid data types besides integers. lists
+aren't supported, for example (bwa?!)), but it is a definitely solid starting
+point.
+ the biggest novelty of this compiler is that it compiles by first transforming
+scheme to continuation-passing-style, which means that call/cc actually does
+work.
+ i wrote this for advanced compilers (cs6470) with matt might (matt.might.net)
+at utah.edu. it was a tight schedule and i barely made it, so the documentation
+is poor, and there are two intermediate representations (instead of fixing the
+initial ir once i realized it was broken, i just wrote a quick translator for
+the ir instead of rewriting the other code).
+ at some point i definitely hope to clean this up.
